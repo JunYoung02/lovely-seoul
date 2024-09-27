@@ -1,4 +1,3 @@
-import './assets/styles/_globals.scss';
 import Home from './pages/Home';
 
 function App() {

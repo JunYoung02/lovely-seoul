@@ -1,0 +1,13 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.div__h2--text {
+  margin: 0;
+
+  + p {
+    margin: 0;
+  }
+}
