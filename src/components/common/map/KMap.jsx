@@ -3,24 +3,39 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { placeData } from '../../../utils/PlaceRtd';
 import BlueMapPin from '../../../assets/icons/BlueMapPin.png';
 import RedMapPin from '../../../assets/icons/RedMapPin.png';
-import axios from 'axios';
+import { XMLParser } from 'fast-xml-parser';
 
 function KMap() {
   const [hoveredPlace, setHoveredPlace] = useState(null); // 현재 마우스 오버된 장소
   const API_KEY = import.meta.env.VITE_APP_OPEN_API_KEY;
   const CULTURAL_API = `http://openapi.seoul.go.kr:8088/${API_KEY}/xml/citydata/1/5`;
 
-  const fetchCultural = async (place) => {
-    console.log(place);
-    const res = await axios.get(`${CULTURAL_API}/${place}`);
-    const xmlString = new DOMParser().parseFromString(res.data, 'text/xml');
-    console.log(xmlString);
-
-    // const res = await fetch(CULTURAL_API);
-    // console.log(res);
-    // const data = await res.json();
-    // console.log(data);
+  const eventList = (eventInfo) => {
+    console.log(eventInfo); // 데이터 잘 왔는지 확인
   };
+
+  const fetchCultural = async (place) => {
+    try {
+      console.log(place); // 선택한 장소 콘솔 출력
+      const response = await fetch(`${CULTURAL_API}/${place}`);
+      const xmlText = await response.text(); // XML 문자열 받아오기
+
+      // XML 파서 생성
+      const parser = new XMLParser({
+        ignoreAttributes: false,
+        attributeNamePrefix: '@_', // 속성 이름 접두사
+      });
+
+      const jsonObj = parser.parse(xmlText); // XML을 JSON으로 변환
+      const seoulcitydata = Object.values(jsonObj)[0]; // 최상위 객체 값 추출
+      // console.log(seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS); // 필요한 데이터 출력
+      const eventInfo = seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS;
+      eventList(eventInfo);
+    } catch (error) {
+      console.error('Error fetching cultural data:', error);
+    }
+  };
+
   return (
     <Map
       center={{ lat: 37.5665, lng: 126.978 }} // 지도 중심 좌표
