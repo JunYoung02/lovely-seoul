@@ -65,6 +65,8 @@ $input-bg: #f4f7ff;
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  text-decoration: none;
+  color: #000;
 
   .favCon {
     background-color: global.$secondary-color;
