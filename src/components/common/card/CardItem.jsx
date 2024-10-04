@@ -5,15 +5,18 @@ import Place from '../../../assets/sample/Place.png';
 import Female from '../../../assets/icons/Female.jpg';
 import Male from '../../../assets/icons/Male.jpg';
 
-function CardItem() {
+function CardItem({ placeData }) {
   return (
-    <div className={styles.wrap}>
+    <>
       <img className={styles.bookMark} src={Heart} alt="북마크" />
       <div className={styles.placeImgCon}>
-        <img src={Place} alt="장소 사진" />
+        <img
+          src={`https://data.seoul.go.kr/SeoulRtd/images/hotspot/${placeData.area_nm}.jpg`}
+          alt="장소 사진"
+        />
       </div>
       <ul className={styles.placeInfoUl}>
-        <h3>광화문 광장</h3>
+        <h3>{placeData.area_nm}</h3>
         <li>
           <img src={PlaceMark} alt="주소" /> 서울특별시 ~~ 주소가 들어갑니다.
         </li>
@@ -40,7 +43,7 @@ function CardItem() {
           <div className={styles.popular}>20대한테 인기가 많아요</div>
         </li>
       </ul>
-    </div>
+    </>
   );
 }
 
