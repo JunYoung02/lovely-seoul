@@ -1,5 +1,5 @@
 import styles from './Info.module.scss';
-import SubListInfo from './SubListInfo';
+import SubInfo from './SubInfo';
 
 function InfoFav() {
   return (
@@ -7,7 +7,7 @@ function InfoFav() {
       <h2 className={styles['div__h2--text']}>
         <strong>OOO님이</strong> 찜한 목록이에요!
       </h2>
-      <SubListInfo />
+      <SubInfo />
     </div>
   );
 }

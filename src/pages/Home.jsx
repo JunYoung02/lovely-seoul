@@ -5,8 +5,10 @@ import InfoUser from '../components/common/info/InfoUser';
 import InfoFav from '../components/common/info/InfoFav';
 import Card from '../components/common/card/Card';
 import KMap from '../components/common/map/KMap';
+import { placeData } from '../utils/PlaceRtd';
 
 function Home() {
+  console.log(placeData);
   return (
     <>
       <Header />
@@ -15,7 +17,7 @@ function Home() {
       <div className={styles.wrapper}>
         <div>
           <Info />
-          <Card />
+          <Card props={placeData} />
         </div>
         <div className={styles.mapCon}>
           <KMap />
