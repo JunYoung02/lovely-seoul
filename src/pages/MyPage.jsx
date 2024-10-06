@@ -1,5 +1,4 @@
 import styles from './MyPage.module.scss';
-import Form from '../components/common/modal/Form';
 import Header from '../components/layout/Header';
 import InfoFav from '../components/common/info/InfoFav';
 import Card from '../components/common/card/Card';
