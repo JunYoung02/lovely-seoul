@@ -11,36 +11,35 @@ function CardItem({ placeData }) {
       <img className={styles.bookMark} src={Heart} alt="북마크" />
       <div className={styles.placeImgCon}>
         <img
-          src={`https://data.seoul.go.kr/SeoulRtd/images/hotspot/${placeData.area_nm}.jpg`}
+          src={`https://data.seoul.go.kr/SeoulRtd/images/hotspot/${placeData.CITYDATA.AREA_NM}.jpg`}
           alt="장소 사진"
         />
       </div>
       <ul className={styles.placeInfoUl}>
-        <h3>{placeData.area_nm}</h3>
-        <li>
-          <img src={PlaceMark} alt="주소" /> 서울특별시 ~~ 주소가 들어갑니다.
-        </li>
+        <h3>{placeData.CITYDATA.AREA_NM}</h3>
         <li className={styles.placeInfo}>
-          사람들이 몰려있을 가능성이 크고 붐빈다고 느낄 수 있어요. 인구밀도가
-          높은 구간에서는 도보 이동시 부딪힘이 발생할 수 있어요.
+          {placeData.CITYDATA.LIVE_PPLTN_STTS[0].AREA_CONGEST_MSG}
         </li>
         <li className={styles.genderWrap}>
           <div className={styles.gender}>
             <div>
               <img src={Female} alt="여성" />
             </div>
-            <span>50.0</span>
+            <span>
+              {placeData.CITYDATA.LIVE_PPLTN_STTS[0].FEMALE_PPLTN_RATE}
+            </span>
           </div>
           <div className={styles.gender}>
             <div>
               <img src={Male} alt="남성" />
             </div>
-            <span>50.5</span>
+            <span>{placeData.CITYDATA.LIVE_PPLTN_STTS[0].MALE_PPLTN_RATE}</span>
           </div>
         </li>
         <li className={styles.placeState}>
-          <div className={styles.people}>매우 혼잡</div>
-          <div className={styles.popular}>20대한테 인기가 많아요</div>
+          <div className={styles.people}>
+            {placeData.CITYDATA.LIVE_PPLTN_STTS[0].AREA_CONGEST_LVL}
+          </div>
         </li>
       </ul>
     </>

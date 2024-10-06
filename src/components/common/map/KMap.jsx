@@ -129,9 +129,10 @@ function KMap() {
           key={place.area_nm}
           position={{ lat: parseFloat(place.x), lng: parseFloat(place.y) }} // 좌표값을 숫자로 변환하여 사용
           onMouseOver={() => setHoveredPlace(place.area_nm)} // 마우스 오버 시 해당 지역 이름을 상태로 저장
-          onMouseOut={() => setHoveredPlace(null)} // 마우스가 벗어나면 상태 초기화
+          onMouseOut={() => setHoveredPlace(false)} // 마우스가 벗어나면 상태 초기화
           image={{ src: BlueMapPin, size: { width: 22, height: 26 } }}
           onClick={() => fetchCultural(place.area_nm)}
+          clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
         >
           {hoveredPlace === place.area_nm && (
             <div

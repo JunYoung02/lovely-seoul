@@ -6,8 +6,8 @@ function Card({ props }) {
   console.log(props);
   return (
     <div className={styles.listwrapper}>
-      {props.row.map((place) => (
-        <div key={place.area_nm} className={styles.cardBox}>
+      {props.map((place) => (
+        <div key={place.CITYDATA.AREA_NM} className={styles.cardBox}>
           <div className={styles.wrap}>
             <CardItem placeData={place} />
           </div>
