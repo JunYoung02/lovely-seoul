@@ -3,7 +3,7 @@ import CardItem from './CardItem';
 // import { placeData } from '../../../utils/PlaceRtd';
 
 function Card({ props }) {
-  console.log(props);
+  // console.log(props);
   return (
     <div className={styles.listwrapper}>
       {props.map((place) => (
