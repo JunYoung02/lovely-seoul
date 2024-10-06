@@ -11,10 +11,10 @@ function FavMap({ markerPlace }) {
       style={{ width: '100%', height: '600px', borderRadius: '20px' }} // 지도 크기
       level={8} // 지도 확대 레벨
     >
-      {markerPlace.row.map((loc) => (
+      {markerPlace.map((loc) => (
         <MapMarker
-          key={loc.x - loc.y}
-          position={{ lat: loc.x, lng: loc.y }}
+          key={loc.CITYDATA.x - loc.CITYDATA.y}
+          position={{ lat: loc.CITYDATA.x, lng: loc.CITYDATA.y }}
           clickable={true} // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
           // 마커에 마우스오버 이벤트를 등록합니다
           onMouseOver={

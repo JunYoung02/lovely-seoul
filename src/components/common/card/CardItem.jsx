@@ -8,6 +8,7 @@ import { ResponsiveBar } from '@nivo/bar';
 
 function CardItem({ placeData }) {
   // 나잇대별 인구 비율
+  // console.log(placeData);
   const ageData = [
     {
       age: '10대',
