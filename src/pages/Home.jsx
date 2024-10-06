@@ -27,15 +27,16 @@ function Home() {
     });
   }, []);
 
-  console.log(placeDetail);
   return (
     <>
       <Header />
+
       {/* <InfoUser />
       <InfoFav /> */}
       <div className={styles.wrapper}>
         <div>
-          <Info />
+          {localStorage.getItem('users') ? <InfoUser /> : <Info />}
+          {/* <Info /> */}
           <Card props={placeDetail} />
         </div>
         <div className={styles.mapCon}>
