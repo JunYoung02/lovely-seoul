@@ -4,17 +4,16 @@ import { placeData } from '../../../utils/PlaceRtd';
 import BlueMapPin from '../../../assets/icons/BlueMapPin.png';
 import RedMapPin from '../../../assets/icons/RedMapPin.png';
 import { XMLParser } from 'fast-xml-parser';
+import axios from 'axios';
 
 function KMap() {
   const [hoveredPlace, setHoveredPlace] = useState(null); // 현재 마우스 오버된 장소
   const [eventInfoList, setEventInfoList] = useState([]);
-  const API_KEY = import.meta.env.VITE_APP_OPEN_API_KEY;
-  const CULTURAL_API = `http://openapi.seoul.go.kr:8088/${API_KEY}/xml/citydata/1/5`;
 
   // 행사 리스트 마커 함수 (나중에 리스트로도 해야되겠다)
   const eventList = (eventInfo) => {
-    console.log(eventInfo); // 데이터 잘 왔는지 확인
-    const eventPlace = eventInfo.map((event) => ({
+    // console.log(eventInfo); // 데이터 잘 왔는지 확인
+    const eventPlace = eventInfo.CITYDATA.EVENT_STTS.map((event) => ({
       title: event.EVENT_NM,
       sub: event.EVENT_PLACE,
       date: event.EVENT_PERIOD,
@@ -23,27 +22,36 @@ function KMap() {
       poster: event.THUMBNAIL,
       url: event.URL,
     }));
-    console.log(`eventplace ${eventPlace}`); // JSON.stringify 사용
+    // console.log(`eventplace ${eventPlace}`); // JSON.stringify 사용
     setEventInfoList(eventPlace);
   };
 
   const fetchCultural = async (place) => {
     try {
-      console.log(place); // 선택한 장소 콘솔 출력
-      const response = await fetch(`${CULTURAL_API}/${place}`);
-      const xmlText = await response.text(); // XML 문자열 받아오기
+      const res = await axios.get(
+        `http://openapi.seoul.go.kr:8088/${
+          import.meta.env.VITE_APP_OPEN_API_KEY
+        }/json/citydata/1/5/${place}`,
+      );
 
-      // XML 파서 생성
-      const parser = new XMLParser({
-        ignoreAttributes: false,
-        attributeNamePrefix: '@_', // 속성 이름 접두사
-      });
+      // console.log(res.data);
+      eventList(res.data);
 
-      const jsonObj = parser.parse(xmlText); // XML을 JSON으로 변환
-      const seoulcitydata = Object.values(jsonObj)[0]; // 최상위 객체 값 추출
-      // console.log(seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS); // 필요한 데이터 출력
-      const eventInfo = seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS;
-      eventList(eventInfo);
+      // console.log(place); // 선택한 장소 콘솔 출력
+      // const response = await fetch(`${CULTURAL_API}/${place}`);
+      // const xmlText = await response.text(); // XML 문자열 받아오기
+
+      // // XML 파서 생성
+      // const parser = new XMLParser({
+      //   ignoreAttributes: false,
+      //   attributeNamePrefix: '@_', // 속성 이름 접두사
+      // });
+
+      // const jsonObj = parser.parse(xmlText); // XML을 JSON으로 변환
+      // const seoulcitydata = Object.values(jsonObj)[0]; // 최상위 객체 값 추출
+      // // console.log(seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS); // 필요한 데이터 출력
+      // const eventInfo = seoulcitydata.CITYDATA.EVENT_STTS.EVENT_STTS;
+      // eventList(eventInfo);
     } catch (error) {
       console.error('Error fetching cultural data:', error);
     }
@@ -98,6 +106,10 @@ function KMap() {
               ),
             });
             marker.setMap(map); // 행사 마커 지도에 표시
+
+            window.kakao.maps.event.addListener(marker, 'click', () => {
+              window.open(event.url, '_blank');
+            });
           });
         } else {
           console.error('Map container does not exist');
@@ -177,6 +189,7 @@ function KMap() {
           image={{ src: RedMapPin, size: { width: 22, height: 26 } }} // 행사 마커 아이콘
           onMouseOver={() => setHoveredPlace(event.title)} // 마우스 오버 시 해당 지역 이름을 상태로 저장
           onMouseOut={() => setHoveredPlace(null)} // 마우스가 벗어나면 상태 초기화
+          // onClick={(e) => console.log(e.target)}
         >
           {hoveredPlace === event.title && (
             <div
