@@ -1,8 +1,6 @@
-# React + Vite
+# lovely Seoul
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 페이지
+- **메인 페이지**
+  
+![2024-10-0710 43 46-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a2f3e136-74ef-4c37-b73c-ed552dba833e)
